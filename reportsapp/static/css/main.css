@@ -1,0 +1,73 @@
+body {
+    background-color: #424242;
+}
+
+.post-form {
+    text-wrap: normal;
+    padding: 15px 5px;
+    position: relative;
+    display: block;
+    text-align: center;
+}
+
+.form-reports {
+    position: relative;
+    display: block;
+    text-align: center;
+}
+
+.areareport {
+    width: 50%;
+    height: 20%;
+}
+
+.post-form-2 {
+    text-wrap: normal;
+    padding: 15px 5px;
+    position: relative;
+    display: block;
+    text-align: center;
+}
+
+
+.post-form label {
+    margin: 5px 10px 5px 0;
+    color: cadetblue;
+}
+
+.user_info {
+    display: block;
+    text-align: left;
+}
+
+.info {
+
+    color: red;
+    text-align: center;
+}
+
+input[type=text], select, input[type=password], input[type=email], input[type=number], label {
+    width: 50%;
+    padding: 12px 20px;
+    margin: auto auto;
+    text-align: left;
+    display: inline-block;
+    box-sizing: border-box;
+    align-items: center;
+}
+
+.btnsubmit {
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    box-sizing: border-box;
+    display: inline-block;
+    width: 50%;
+}
+
+input[type=submit]:hover {
+    display: inline-block;
+    background-color: #45a049;
+}
+

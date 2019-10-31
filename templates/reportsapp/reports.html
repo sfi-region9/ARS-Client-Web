@@ -1,0 +1,19 @@
+{% extends 'reportsapp/base.html' %}
+{% block content %}
+    <div class="post-form">
+            <textarea type="text" class="areareport" style="width: 70%; height: 70%" id="report"
+                      onkeydown="callPythonOnChange(this)">{{ default_value }}</textarea>
+        <button class="btn btn-primary btnsubmit" type="submit" value="Send Report"
+                onclick="callPythonReport()">Send Report
+        </button>
+    </div>
+    <div class="post-form">
+        {% if isco %}
+            <button class="btn btn-primary" id="customization" onclick="callPythonOnClick('custom')">Customization</button>
+        {% endif %}
+        <button class="btn btn-primary" id="profile" onclick="callPythonOnClick('profile')">Profile</button>
+        <button class="btn btn-danger" disabled="true" id="destroy_account" onclick="destroy()">Destroy Account
+        </button>
+        <button class="btn btn-danger" id="unlock" onclick="unlock()">Unlock Destroy Account Button</button>
+    </div>
+{% endblock %}

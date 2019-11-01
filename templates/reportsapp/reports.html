@@ -1,7 +1,15 @@
 {% extends 'reportsapp/base.html' %}
 {% block content %}
+    {% if messages %}
+        <script>
+            {% for message in messages %}
+                M.toast({html: '{{ message }}'});
+            {% endfor %}
+        </script>
+    {% endif %}
     <div class="post-form">
-            <textarea type="text" class="areareport" style="width: 70%; height: 70%" id="report"
+            <textarea type="text" class="areareport materialize-textarea"
+                      style="width: 70%; height: 70%; background-color: lightslategray" id="report"
                       onkeydown="callPythonOnChange(this)">{{ default_value }}</textarea>
         <button class="btn btn-primary btnsubmit" type="submit" value="Send Report"
                 onclick="callPythonReport()">Send Report
@@ -9,7 +17,8 @@
     </div>
     <div class="post-form">
         {% if isco %}
-            <button class="btn btn-primary" id="customization" onclick="callPythonOnClick('custom')">Customization</button>
+            <button class="btn btn-primary" id="customization" onclick="callPythonOnClick('custom')">Customization
+            </button>
         {% endif %}
         <button class="btn btn-primary" id="profile" onclick="callPythonOnClick('profile')">Profile</button>
         <button class="btn btn-danger" disabled="true" id="destroy_account" onclick="destroy()">Destroy Account

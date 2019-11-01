@@ -1,0 +1,28 @@
+{% include 'reportsapp/base.html' %}
+{% block content %}
+    <div class="post-form">
+        <label style="color: whitesmoke; font-size: 15px; text-align: center">Please see the <a
+                href="https://documentation.nwa2coco.fr">documentation link</a> to a
+            full tutorial</label>
+        <label style="color: whitesmoke; font-size: 15px; text-align: center"><u><i>Default Report</i></u> : You can add
+            a <b><span
+                    style="color: red; font-size: 18px">#</span></b> before the line to mark an optional
+            line</label>
+        <label style="color: whitesmoke; font-size: 15px; text-align: center"><i><u>Template</u></i> : See the
+            documentation for a
+            variety of
+            placeholders</label>
+    </div>
+    <div class="post-form">
+        <textarea
+                style="width: 40%; height: 40%; margin-left: auto; margin-right: 1%; background-color: slategray"
+                placeholder="Template" id="template"></textarea>
+        <textarea style="width: 40%; height: 40%; margin-right: auto; background-color: slategray"
+                  placeholder="Default Report" id="default"></textarea>
+    </div>
+    <div class="post-form">
+        <button class="btn btn-primary" onclick="tellDjango(0)">Send Template</button>
+        <button class="btn btn-primary" onclick="tellDjango(1)">Send Default Report</button>
+        <button class="btn btn-primary" onclick="tellDjango(2)">Send Both of them</button>
+    </div>
+{% endblock %}

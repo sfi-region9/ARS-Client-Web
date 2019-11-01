@@ -1,4 +1,4 @@
-{% extends "reportsapp/base.html" %}
+{% include 'reportsapp/base.html' %}
 {% block content %}
     {% if messages %}
         <script>
@@ -7,14 +7,17 @@
             {% endfor %}
         </script>
     {% endif %}
-    <div class="post-form"
-         style="text-wrap: normal; padding: 15px 5px; position:relative; display: block; text-align: center; ">
-        <form action="/{{ submit }}" method="post"
-              style="text-wrap: normal; padding: 15px 5px; position:relative; width: 80%; display: block;text-align: center; margin: 0 auto; color: white">
+
+
+    <div class="post-form">
+        <form action="/reports/profile" method="post"
+              style="width: 80%; text-align: center; margin: 0 auto; color: white">
             {% csrf_token %}
             {{ form }}
-            <input class="btn btn-primary btnsubmit" type="submit" value="{{ base }}">
+            <input class="btn btn-primary btnsubmit" type="submit" value="Change Vessel">
         </form>
+        <label style="font-size: 18px; text-align: center">Your UUID (to link your accounts) : <b><span
+                style="color: red;">{{ session.uuid }}</span></b></label>
     </div>
 {% endblock %}
 <footer class="page-footer"

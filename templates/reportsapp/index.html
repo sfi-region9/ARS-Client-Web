@@ -1,1 +1,118 @@
 {% extends "reportsapp/base.html" %}
+{% block content %}
+
+    {% if messages %}
+        <script>
+            {% for message in messages %}
+                M.toast({html: '{{ message }}'});
+            {% endfor %}
+        </script>
+    {% endif %}
+    <div class="post-form">
+        <div class="graph1-container" style="width: 20%; height: 20%; position: relative; top: 18%">
+            <canvas id="chart1" width="400" height="400" aria-label="First Chart" role="img"
+                    style="color: white"></canvas>
+        </div>
+        <div class="graph1-container" style="width: 40%; height: 20%; position:relative; margin: auto; ">
+            <canvas id="chart2" width="800" height="400" aria-label="First Chart" role="img"
+                    style="color: white"></canvas>
+        </div>
+    </div>
+    <footer class="page-footer"
+            style="position:fixed;bottom:0;left:0;width:100%;background-color: #222; border-color: #080808">
+        <div class="container">
+            <p style="text-align: center">
+                Developed by LT Colin THOMAS from the USS Versailles, R9. To contact me : contact@nwa2coco.fr or via
+                Facebook
+            </p>
+        </div>
+    </footer>
+    <script type="application/javascript">
+        Chart.defaults.global.defaultFontColor = "#fff";
+        label = [];
+        labels2 = [];
+        data2 = [];
+        {% for i in lp %}
+            label.push('{{ i }}');
+        {% endfor %}
+        data = [];
+        {% for i in lps %}
+            data.push({{ i }});
+        {% endfor %}
+        {% for i in dp %}
+            labels2.push('{{ i }}');
+        {% endfor %}
+        {% for i in dps %}
+            data2.push({{ i }});
+        {% endfor %}
+        var c = document.getElementById('chart1');
+        var chart = new Chart(c, {
+            type: 'doughnut',
+            data: {
+                labels: label,
+                datasets: [
+                    {
+                        data: data
+                    }
+                ]
+            },
+            options: {
+                scaleFontColor: '#FFF',
+                labelTextColors: '#FFF',
+                plugins: {
+                    colorschemes: {
+                        scheme: 'brewer.Paired9'
+                    }
+                },
+                responsive: true,
+                title: {
+                    display: true,
+                    text: 'Vessels by Regions'
+                }
+            }
+        });
+        linechart = new Chart(document.getElementById('chart2'), {
+            type: 'line',
+            data: {
+                datasets: [{
+                    data: data2,
+                    title: "Nombre de rapport par date"
+                }],
+                labels: labels2
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            min: 0,
+                        },
+                        title: "Nombre",
+                        scaleLabel: {
+                            display: true,
+                            labelString: "Reports"
+                        },
+
+                    }],
+                    xAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: "Date"
+                        }
+                    }]
+                },
+                title: {
+                    display: true,
+                    text: "Reports"
+                },
+                legend: {
+                    display: false
+                },
+                plugins: {
+                    colorschemes: {
+                        scheme: 'brewer.Spectral8'
+                    }
+                },
+            }
+        })
+    </script>
+{% endblock %}

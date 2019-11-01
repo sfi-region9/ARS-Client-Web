@@ -8,7 +8,7 @@ from .forms import LoginForm, RegisterForm, ChangeVesselForm
 import json
 
 global api, auth, vessels, default_by_id
-api = ApiHandler('https://ars.nwa2coco.fr')
+api = ApiHandler('http://localhost:5555')
 auth = AuthHandler('https://auth.nwa2coco.fr')
 vessels = [(i.vesselid, i.name) for i in api.readVessels()]
 e = {}
@@ -18,28 +18,45 @@ for i in api.readVessels():
 
 
 def index(request):
+    lp = []
+    lps = []
+    dp = []
+    dps = []
+    d = api.getVesselByRegions()
+    p = api.getReportsByDate()
+    for i in d.keys():
+        if d[i] > 0:
+            lp.append('R' + i)
+            lps.append(d[i])
+    for i in p.keys():
+        dp.append(str(i))
+        dps.append(p[i])
     if not request.session.__contains__('username'):
         return render(request, '../templates/reportsapp/index.html',
-                      {'session': False})
+                      {'session': False, 'lp': lp, 'lps': lps, 'dp': dp, 'dps': dps})
     else:
         api.syncronize_user(request.session)
         return render(request, '../templates/reportsapp/index.html',
-                      {'session': request.session.__dict__['_session_cache']})
+                      {'session': request.session.__dict__['_session_cache'], 'lp': lp, 'lps': lps, 'dp': dp,
+                       'dps': dps})
 
 
 # Create your views here.
 def login(request):
     if request.session.__contains__('username'):
-        return HttpResponseRedirect('/reports/')
+        return HttpResponseRedirect('/')
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
             l = Login(form.cleaned_data['username'], form.cleaned_data['password'])
             req = auth.login(l, request.session)
             if req:
-                return HttpResponseRedirect('/reports/')
+                messages.info(request, "You are successfully login you're now ready to report!")
+                return HttpResponseRedirect('/')
             else:
+                print(req)
                 messages.info(request, req)
+                return HttpResponseRedirect('/login')
 
     l = LoginForm()
     return render(request, '../templates/reportsapp/login.html', {'form': l, 'base': 'Log In', 'submit': 'login'})
@@ -47,7 +64,7 @@ def login(request):
 
 def register(request):
     if request.session.__contains__('username'):
-        return HttpResponseRedirect('/reports/')
+        return HttpResponseRedirect('/')
     if request.method == 'POST':
         form = RegisterForm(request.POST)
         if form.is_valid():
@@ -55,21 +72,39 @@ def register(request):
                          form.cleaned_data['password'], form.cleaned_data['vessel'], form.cleaned_data['email'])
             req = auth.register(r)
             messages.info(request, req)
-            return HttpResponseRedirect('/reports/login')
+            if not req.__contains__('Error'):
+                return HttpResponseRedirect('/reports/login')
+            else:
+                return HttpResponseRedirect('/reports/register')
+
     form = RegisterForm()
     return render(request, '../templates/reportsapp/login.html',
-                  {'form': form, 'base': 'Register', 'submit': 'register'})
+                  {'form': form, 'base': 'Register', 'submit': 'register',
+                   'session': request.session.__dict__['_session_cache']})
+
+
+def profile(request):
+    if not request.session.__contains__('username'):
+        return HttpResponseRedirect('/')
+    if request.method == 'POST':
+        f = ChangeVesselForm(request.POST)
+        if f.is_valid():
+            fs = f.cleaned_data
+            messages.info(request, api.switchvessel(request.session, fs['vessel']))
+            return HttpResponseRedirect('/')
+    form = ChangeVesselForm()
+    return render(request, '../templates/reportsapp/profile.html', {'form': form, 'session': request.session})
 
 
 def logout(request):
     request.session.delete()
     messages.info(request, "You log out")
-    return HttpResponseRedirect('/reports/')
+    return HttpResponseRedirect('/')
 
 
 def user(request):
     if not request.session.__contains__('username'):
-        return HttpResponseRedirect('/reports/')
+        return HttpResponseRedirect('/')
     l = ChangeVesselForm()
     return render(request, '../templates/reportsapp/user.html',
                   {'session': request.session.__dict__['_session_cache'], 'form': l})
@@ -78,7 +113,7 @@ def user(request):
 @csrf_exempt
 def change(request):
     if not request.session.__contains__('username'):
-        return HttpResponseRedirect('/reports/')
+        return HttpResponseRedirect('/')
 
     body = request.body.decode('utf8')
     data = json.loads(body)
@@ -102,16 +137,34 @@ def change(request):
     return HttpResponse('True')
 
 
+@csrf_exempt
 def communication(request):
+    r = request.body.decode('utf8')
+    jso = json.loads(r)
+    report = jso['text']
+    print(report)
+    if report == "destroy":
+        destroy(request.session)
+        return HttpResponse('Redirect:main')
+    if report == "profile":
+        return HttpResponse('Redirect:profile')
+    if report == "custom":
+        return HttpResponse('Redirect:custom')
     return HttpResponse('False')
+
+
+def destroy(session):
+    api.destroy(session)
+    auth.destroy(session)
+    session.delete()
+    return HttpResponseRedirect('/')
 
 
 @csrf_exempt
 def report(request):
     api.syncronize_user(request.session)
     if not request.session.__contains__('username'):
-        return HttpResponseRedirect('/login/')
-
+        return HttpResponseRedirect('/login')
     re = request.session['report']
     res = re.split('\n')
     ress = []
@@ -133,3 +186,32 @@ def sendreport(request):
     report = jso['text']
     s = api.sendreport(request.session, report)
     return HttpResponse(s)
+
+
+def customization(request):
+    if not request.session.__contains__('username'):
+        return HttpResponseRedirect('/login')
+    if not api.isco(request.session):
+        return HttpResponseRedirect('/reports')
+    return render(request, '../templates/reportsapp/customization.html',
+                  {'session': request.session.__dict__['_session_cache']})
+
+
+@csrf_exempt
+def sendtemplate(request):
+    r = request.body.decode('utf8')
+    jso = json.loads(r)
+    report = jso['text']
+    print(report)
+    api.update_template(request.session, report)
+    return HttpResponse("s")
+
+
+@csrf_exempt
+def sendd(request):
+    r = request.body.decode('utf8')
+    jso = json.loads(r)
+    report = jso['text']
+    print(report)
+    api.update_default(request.session, report)
+    return HttpResponse("s")

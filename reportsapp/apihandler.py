@@ -30,6 +30,15 @@ class ApiHandler:
         session['uuid'] = jso['uuid']
         return "Session successfully updated"
 
+    def switchvessel(self, session, newvessel):
+        if not session.__contains__('username'):
+            return "Error you're not logged"
+        s = StorageHandler(session)
+        u = s.constructUser()
+        u.vesselid = newvessel
+        requests.post(self.url + "/switch_vessel", data=json.dumps(u.__dict__))
+        return "You changed to the : " + str(newvessel)
+
     def isco(self, session):
         if not session.__contains__('username'):
             return "Error you're not logged"
@@ -44,8 +53,30 @@ class ApiHandler:
             return "Error you're not logged"
         s = StorageHandler(session)
         s.report = report
-        reponse = requests.post(self.url + "/submit", data=json.dumps(s.constructUser().__dict__))
-        return reponse.content.decode("utf8")
+        response = requests.post(self.url + "/submit", data=json.dumps(s.constructUser().__dict__))
+        return response.content.decode("utf8")
+
+    def destroy(self, session):
+        s = StorageHandler(session)
+        response = requests.post(self.url + "/destroy_user", data=json.dumps(s.constructUser().__dict__))
+        return response.content.decode('utf8')
+
+    def update_template(self, session, template):
+        s = StorageHandler(session)
+        ss = {'vesselid': s.vesselid, 'coid': s.messengerid, 'template': template}
+        response = requests.post(self.url + "/update_template", data=json.dumps(ss))
+        return "True"
+
+    def update_default(self, session, default):
+        s = StorageHandler(session)
+        ss = {'vesselid': s.vesselid, 'coid': s.messengerid, 'text': default}
+        response = requests.post(self.url + "/update_name", data=json.dumps(ss))
+
+    def getVesselByRegions(self):
+        return json.loads(requests.get(self.url + "/vessel_by_regions").content.decode('utf8'))
+
+    def getReportsByDate(self):
+        return json.loads(requests.get(self.url + "/reports_by_date").content.decode('utf8'))
 
 
 class AuthHandler:
@@ -68,15 +99,20 @@ class AuthHandler:
             session.modified = True
             return True
         else:
-            return False
+            return s
 
     def register(self, user):
         payload = modelToDic(user)
         dic2 = {'name': payload['name'], 'username': payload['username'], 'password': payload['password'],
-                'vessel': payload['vessel'], 'email': payload['email'], 'scc': "SCC#" + payload['scc']}
+                'vessel': payload['vessel'], 'email': payload['email'], 'scc': "SCC#" + str(payload['scc'])}
         data = requests.post(url=self.url + "/register", data=None, json=dic2)
         s = data.content.decode('utf8')
         return s
+
+    def destroy(self, session):
+        s = StorageHandler(session)
+        response = requests.post(self.url + "/destroy_user", data=json.dumps(s.constructUser().__dict__))
+        return response.content.decode('utf8')
 
 
 def modelToDic(model):

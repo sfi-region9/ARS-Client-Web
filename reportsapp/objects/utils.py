@@ -24,9 +24,9 @@ class Login:
 
 
 class User:
-    def __init__(self, name, vesselid, scc, report, uuid):
+    def __init__(self, name, vesselID, scc, report, uuid):
         self.name = name
-        self.vesselid = vesselid
+        self.vesselID = vesselID
         self.scc = scc
         self.report = report
         self.uuid = uuid
@@ -37,7 +37,7 @@ class StorageHandler:
         self.session = session
         self.username = session['username']
         self.name = session['name']
-        self.vesselid = session['vesselid']
+        self.vesselID = session['vesselID']
         self.scc = session['scc']
         self.uuid = session['uuid']
         self.messengerid = session['messengerid']
@@ -47,4 +47,4 @@ class StorageHandler:
             self.report = ''
 
     def constructUser(self):
-        return User(self.name, self.vesselid, self.scc, self.report, self.uuid)
+        return User(self.name, self.vesselID, self.scc, self.report, self.uuid)

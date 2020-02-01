@@ -15,4 +15,5 @@ urlpatterns = [
     path('reports/customization', views.customization, name='custom'),
     path('reports/sendtemplate', views.sendtemplate, name='cust'),
     path('reports/sendd', views.sendd, name='e'),
+    path('ml', views.ml, name="ml")
 ]

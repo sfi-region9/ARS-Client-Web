@@ -12,22 +12,24 @@ class ApiHandler:
         data = response.json()
         r = []
         for i in data:
-            v = Vessel(name=i['name'], vesselid=i['vesselid'], coid=i['coid'], template=i['template'],
-                       defaul=i['defaul'])
+            v = Vessel(name=i['name'], vesselid=i['vesselID'], coid=i['coID'], template=i['template'],
+                       defaul=i['defaultReport'])
             r.append(v)
         return r
 
-    def syncronize_user(self, session):
+    def synchronize_user(self, session):
         if not session.__contains__('username'):
             return "Error you're not logged"
         s = StorageHandler(session)
-        response = requests.post(self.url + "/syncronize_user", data=json.dumps(s.constructUser().__dict__))
-        jso = json.loads(response.content.decode('utf8'))
+        response = requests.post(self.url + "/synchronize_user", data=json.dumps(s.constructUser().__dict__))
+        df = response.content.decode('utf8')
+        jso = json.loads(df)
         session['name'] = jso['name']
         session['scc'] = jso['scc']
-        session['vesselid'] = jso['vesselid']
+        session['vesselID'] = jso['vesselID']
         session['report'] = jso['report']
         session['uuid'] = jso['uuid']
+
         return "Session successfully updated"
 
     def switchvessel(self, session, newvessel):
@@ -43,7 +45,7 @@ class ApiHandler:
         if not session.__contains__('username'):
             return "Error you're not logged"
         s = StorageHandler(session)
-        dic = {"vesselid": s.vesselid, "coid": s.messengerid}
+        dic = {"vesselID": s.vesselID, "coID": s.messengerid}
         payload = dic
         response = requests.post(self.url + "/check_co", data=json.dumps(payload))
         return response.content.decode('utf8')
@@ -63,13 +65,13 @@ class ApiHandler:
 
     def update_template(self, session, template):
         s = StorageHandler(session)
-        ss = {'vesselid': s.vesselid, 'coid': s.messengerid, 'template': template}
+        ss = {'vesselID': s.vesselID, 'coID': s.messengerid, 'template': template}
         response = requests.post(self.url + "/update_template", data=json.dumps(ss))
         return "True"
 
     def update_default(self, session, default):
         s = StorageHandler(session)
-        ss = {'vesselid': s.vesselid, 'coid': s.messengerid, 'text': default}
+        ss = {'vesselID': s.vesselID, 'coID': s.messengerid, 'text': default}
         response = requests.post(self.url + "/update_name", data=json.dumps(ss))
 
     def getVesselByRegions(self):
@@ -92,7 +94,7 @@ class AuthHandler:
             sdf = s.split('}_}')
             session['username'] = sdf[0]
             session['scc'] = sdf[1]
-            session['vesselid'] = sdf[2]
+            session['vesselID'] = sdf[2]
             session['name'] = sdf[3]
             session['messengerid'] = sdf[4]
             session['uuid'] = sdf[5]

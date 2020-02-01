@@ -8,7 +8,7 @@ from .forms import LoginForm, RegisterForm, ChangeVesselForm
 import json
 
 global api, auth, vessels, default_by_id
-api = ApiHandler('http://localhost:5555')
+api = ApiHandler('https://ars.nwa2coco.fr')
 auth = AuthHandler('https://auth.nwa2coco.fr')
 vessels = [(i.vesselid, i.name) for i in api.readVessels()]
 e = {}
@@ -35,12 +35,13 @@ def index(request):
         return render(request, '../templates/reportsapp/index.html',
                       {'session': False, 'lp': lp, 'lps': lps, 'dp': dp, 'dps': dps})
     else:
-        api.syncronize_user(request.session)
+        api.synchronize_user(request.session)
         return render(request, '../templates/reportsapp/index.html',
                       {'session': request.session.__dict__['_session_cache'], 'lp': lp, 'lps': lps, 'dp': dp,
                        'dps': dps})
 
-
+def ml(request):
+    return render(request, '../templates/reportsapp/ml.html')
 # Create your views here.
 def login(request):
     if request.session.__contains__('username'):
@@ -73,9 +74,9 @@ def register(request):
             req = auth.register(r)
             messages.info(request, req)
             if not req.__contains__('Error'):
-                return HttpResponseRedirect('/reports/login')
+                return HttpResponseRedirect('/login')
             else:
-                return HttpResponseRedirect('/reports/register')
+                return HttpResponseRedirect('/register')
 
     form = RegisterForm()
     return render(request, '../templates/reportsapp/login.html',
@@ -162,7 +163,7 @@ def destroy(session):
 
 @csrf_exempt
 def report(request):
-    api.syncronize_user(request.session)
+    api.synchronize_user(request.session)
     if not request.session.__contains__('username'):
         return HttpResponseRedirect('/login')
     re = request.session['report']

@@ -8,8 +8,8 @@ from .forms import LoginForm, RegisterForm, ChangeVesselForm
 import json
 
 global api, auth, vessels, default_by_id
-api = ApiHandler('https://ars.nwa2coco.fr')
-auth = AuthHandler('https://auth.nwa2coco.fr')
+api = ApiHandler('https://api.sfiars.eu')
+auth = AuthHandler('https://auth.sfiars.eu')
 vessels = [(i.vesselid, i.name) for i in api.readVessels()]
 e = {}
 
@@ -121,7 +121,7 @@ def change(request):
     rapport = data['text']
 
     cf = rapport.split('\n')
-    cf2 = e[request.session['vesselid']].split('\n')
+    cf2 = e[request.session['vesselID']].split('\n')
     cf3 = []
     for i in cf2:
         if not i.startswith('#'):

@@ -15,12 +15,12 @@ class RegisterForm(forms.Form):
     password = forms.CharField(widget=PasswordInput(), required=True)
     scc = forms.IntegerField(label="SCC#", required=True)
     email = forms.EmailField(label="Email", required=True)
-    api = ApiHandler('https://ars.nwa2coco.fr')
+    api = ApiHandler('https://api.sfiars.eu')
     vessels = [(i.vesselid, i.name.replace('_', ' ')) for i in api.readVessels()]
     vessel = forms.ChoiceField(choices=vessels, widget=forms.Select, required=True)
 
 
 class ChangeVesselForm(forms.Form):
-    api = ApiHandler('https://ars.nwa2coco.fr')
+    api = ApiHandler('https://api.sfiars.eu')
     vessels = [(i.vesselid, i.name.replace('_', ' ')) for i in api.readVessels()]
     vessel = forms.ChoiceField(choices=vessels, widget=forms.Select, required=True)

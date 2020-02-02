@@ -1,5 +1,4 @@
 <!--doctype HTML-->
-{% load staticfiles %}
 {% load static %}
 <html>
 <head>
@@ -31,9 +30,8 @@
                 <a class="navbar-brand" href="/">Automatic Report Client</a>
             </div>
             <ul class="nav navbar-nav">
-                <li class=""><a href="https://documentation.nwa2coco.fr">Documentation</a></li>
-                <li><a href="https://documentation.nwa2coco.fr/download/ars/">PC Client</a></li>
-                <li><a href="#"></a></li>
+                <li class=""><a href="https://doc.sfiars.eu">Documentation</a></li>
+                <li class="disabled"><a class="disabled" href="#">PC Client</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 {% if not session.username is None %}

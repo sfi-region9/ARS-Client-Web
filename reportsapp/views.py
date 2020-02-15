@@ -5,6 +5,9 @@ from django.contrib import messages
 from reportsapp.objects.utils import *
 from django.views.decorators.csrf import csrf_exempt
 from .forms import LoginForm, RegisterForm, ChangeVesselForm
+from django.utils.translation import gettext as _
+from django.utils.translation import activate, get_language
+
 import json
 
 global api, auth, vessels, default_by_id
@@ -15,6 +18,7 @@ e = {}
 
 for i in api.readVessels():
     e[i.vesselid] = i.defaul
+activate('fr')
 
 
 def index(request):
@@ -40,8 +44,11 @@ def index(request):
                       {'session': request.session.__dict__['_session_cache'], 'lp': lp, 'lps': lps, 'dp': dp,
                        'dps': dps})
 
+
 def ml(request):
     return render(request, '../templates/reportsapp/ml.html')
+
+
 # Create your views here.
 def login(request):
     if request.session.__contains__('username'):
@@ -52,7 +59,7 @@ def login(request):
             l = Login(form.cleaned_data['username'], form.cleaned_data['password'])
             req = auth.login(l, request.session)
             if req:
-                messages.info(request, "You are successfully login you're now ready to report!")
+                messages.info(request, _("You are successfully login you're now ready to report!"))
                 return HttpResponseRedirect('/')
             else:
                 print(req)
@@ -99,7 +106,7 @@ def profile(request):
 
 def logout(request):
     request.session.delete()
-    messages.info(request, "You log out")
+    messages.info(request, _('You logged out'))
     return HttpResponseRedirect('/')
 
 

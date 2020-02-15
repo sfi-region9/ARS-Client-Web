@@ -1,17 +1,21 @@
 {% include 'reportsapp/base.html' %}
+{% load i18n %}
+
 {% block content %}
+
+    {% trans "Please see the " as m1 %}
+    {% trans "documentation link" as doclink %}
+    {% trans "to a full tutorial" as m2 %}
+    {% trans "Default Report" as df %}
+    {% trans "You can add a " as m3 %}
+    {% trans " before the line to mark an optional line" as m4 %}
+    {% trans " : See the documentation for a variety of placeholders" as m5 %}
     <div class="post-form">
-        <label style="color: whitesmoke; font-size: 15px; text-align: center">Please see the <a
-                href="https://documentation.nwa2coco.fr">documentation link</a> to a
-            full tutorial</label>
-        <label style="color: whitesmoke; font-size: 15px; text-align: center"><u><i>Default Report</i></u> : You can add
-            a <b><span
-                    style="color: red; font-size: 18px">#</span></b> before the line to mark an optional
-            line</label>
-        <label style="color: whitesmoke; font-size: 15px; text-align: center"><i><u>Template</u></i> : See the
-            documentation for a
-            variety of
-            placeholders</label>
+        <label style="color: whitesmoke; font-size: 15px; text-align: center">{{ m1 }}<a
+                href="https://documentation.nwa2coco.fr">{{ doclink }}</a>{{ m2 }}</label>
+        <label style="color: whitesmoke; font-size: 15px; text-align: center"><u><i>{{ df }}</i></u>{{ m3 }}<b><span
+                style="color: red; font-size: 18px">#</span></b>{{ m4 }}</label>
+        <label style="color: whitesmoke; font-size: 15px; text-align: center"><i><u>Template</u></i>{{ m5 }}</label>
     </div>
     <div class="post-form">
         <textarea

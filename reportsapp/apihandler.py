@@ -1,6 +1,7 @@
 import requests
 import json
 from reportsapp.objects.utils import *
+from django.utils.translation import gettext as _
 
 
 class ApiHandler:

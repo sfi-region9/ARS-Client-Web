@@ -1,4 +1,5 @@
 {% extends 'reportsapp/base.html' %}
+{% load i18n %}
 {% block content %}
     {% if messages %}
         <script>
@@ -12,17 +13,17 @@
                       style="width: 70%; height: 70%; background-color: lightslategray" id="report"
                       onkeydown="callPythonOnChange(this)">{{ default_value }}</textarea>
         <button class="btn btn-primary btnsubmit" type="submit" value="Send Report"
-                onclick="callPythonReport()">Send Report
+                onclick="callPythonReport()">{% trans "Send Report" %}
         </button>
     </div>
     <div class="post-form">
         {% if isco %}
-            <button class="btn btn-primary" id="customization" onclick="callPythonOnClick('custom')">Customization
+            <button class="btn btn-primary" id="customization" onclick="callPythonOnClick('custom')">{% trans "Customization" %}
             </button>
         {% endif %}
-        <button class="btn btn-primary" id="profile" onclick="callPythonOnClick('profile')">Profile</button>
-        <button class="btn btn-danger" disabled="true" id="destroy_account" onclick="destroy()">Destroy Account
+        <button class="btn btn-primary" id="profile" onclick="callPythonOnClick('profile')">{% trans "Profile" %}</button>
+        <button class="btn btn-danger" disabled="true" id="destroy_account" onclick="destroy()">{% trans "Destroy Account" %}
         </button>
-        <button class="btn btn-danger" id="unlock" onclick="unlock()">Unlock Destroy Account Button</button>
+        <button class="btn btn-danger" id="unlock" onclick="unlock()">{% trans "Unlock Destroy Account Button" %}</button>
     </div>
 {% endblock %}

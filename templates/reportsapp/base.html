@@ -1,5 +1,7 @@
 <!--doctype HTML-->
 {% load static %}
+{% load i18n %}
+{% trans "Welcome " as welcome %}
 <html>
 <head>
     <meta charset="utf-8">
@@ -35,12 +37,12 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 {% if not session.username is None %}
-                    <li><a href="/reports">Welcome {{ session.name }}</a></li>
-                    <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Log Out</a></li>
+                    <li><a href="/reports">{{ welcome|add:" "|add:session.name }}</a></li>
+                    <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span>{% trans " Log Out" %}</a></li>
                 {% endif %}
                 {% if session == False %}
-                    <li><a href="/register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-                    <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                    <li><a href="/register"><span class="glyphicon glyphicon-user"></span>{% trans " Register" %}</a></li>
+                    <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span>{% trans " Login" %}</a></li>
                 {% endif %}
             </ul>
         </div>

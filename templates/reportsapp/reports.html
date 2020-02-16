@@ -4,8 +4,7 @@
     {% if messages %}
         <script>
             {% for message in messages %}
-                {% trans message as translated_message %}
-                M.toast({html: '{{ translated_message }}'});
+                M.toast({html: '{{ message }}'});
             {% endfor %}
         </script>
     {% endif %}

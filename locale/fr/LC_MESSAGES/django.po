@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-15 10:20+0000\n"
+"POT-Creation-Date: 2020-02-16 11:44+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,8 +18,136 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: reportsapp/views.py:223
-msgid "Test English"
+#: ARSWebsiteReloaded/settings.py:113
+msgid "French"
+msgstr ""
+
+#: ARSWebsiteReloaded/settings.py:114
+msgid "English"
+msgstr ""
+
+#: reportsapp/forms.py:9 reportsapp/forms.py:15
+msgid "username"
+msgstr ""
+
+#: reportsapp/forms.py:14
+msgid "NAME First"
+msgstr ""
+
+#: reportsapp/forms.py:17
+msgid "SCC#"
+msgstr ""
+
+#: reportsapp/forms.py:18
+msgid "Email"
+msgstr ""
+
+#: reportsapp/views.py:60
+msgid "You are successfully login you're now ready to report!"
+msgstr ""
+
+#: reportsapp/views.py:69
+msgid "Log In"
+msgstr ""
+
+#: reportsapp/views.py:89
+msgid "Register"
+msgstr ""
+
+#: reportsapp/views.py:108
+msgid "You logged out"
+msgstr ""
+
+#: templates/reportsapp/base.html:4
+msgid "Welcome "
+msgstr ""
+
+#: templates/reportsapp/base.html:41
+msgid " Log Out"
+msgstr ""
+
+#: templates/reportsapp/base.html:44
+msgid " Register"
+msgstr ""
+
+#: templates/reportsapp/base.html:45
+msgid " Login"
+msgstr ""
+
+#: templates/reportsapp/customization.html:6
+msgid "Please see the "
+msgstr ""
+
+#: templates/reportsapp/customization.html:7
+msgid "documentation link"
+msgstr ""
+
+#: templates/reportsapp/customization.html:8
+msgid " to a full tutorial"
+msgstr ""
+
+#: templates/reportsapp/customization.html:9
+msgid "Default Report : "
+msgstr ""
+
+#: templates/reportsapp/customization.html:10
+msgid "You can add a "
+msgstr ""
+
+#: templates/reportsapp/customization.html:11
+msgid " before the line to mark an optional line"
+msgstr ""
+
+#: templates/reportsapp/customization.html:12
+msgid " : See the documentation for a variety of placeholders"
+msgstr ""
+
+#: templates/reportsapp/customization.html:13
+msgid "Send Template"
+msgstr ""
+
+#: templates/reportsapp/customization.html:14
+msgid "Send Default Report"
+msgstr ""
+
+#: templates/reportsapp/customization.html:15
+msgid "Send Both"
+msgstr ""
+
+#: templates/reportsapp/index.html:27 templates/reportsapp/login.html:26
+#: templates/reportsapp/profile.html:29
+msgid ""
+"Developed by LTCR Charlotte THOMAS from the USS Versailles, R9. To contact "
+"me : contact@nwa2coco.fr or via Facebook"
+msgstr ""
+
+#: templates/reportsapp/index.html:28 templates/reportsapp/login.html:27
+#: templates/reportsapp/profile.html:30
+msgid "Legal"
+msgstr ""
+
+#: templates/reportsapp/profile.html:21
+msgid "Your UUID (to link your accounts) :"
+msgstr ""
+
+#: templates/reportsapp/reports.html:16
+msgid "Send Report"
+msgstr ""
+
+#: templates/reportsapp/reports.html:21
+msgid "Customization"
+msgstr ""
+
+#: templates/reportsapp/reports.html:24
+msgid "Profile"
+msgstr ""
+
+#: templates/reportsapp/reports.html:25
+msgid "Destroy Account"
+msgstr ""
+
+#: templates/reportsapp/reports.html:27
+msgid "Unlock Destroy Account Button"
 msgstr ""
 
 #: venv/lib/python3.6/site-packages/django/contrib/messages/apps.py:7

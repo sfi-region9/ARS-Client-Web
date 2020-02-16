@@ -5,11 +5,14 @@
 
     {% trans "Please see the " as m1 %}
     {% trans "documentation link" as doclink %}
-    {% trans "to a full tutorial" as m2 %}
-    {% trans "Default Report" as df %}
+    {% trans " to a full tutorial" as m2 %}
+    {% trans "Default Report : " as df %}
     {% trans "You can add a " as m3 %}
     {% trans " before the line to mark an optional line" as m4 %}
     {% trans " : See the documentation for a variety of placeholders" as m5 %}
+    {% trans "Send Template" as st %}
+    {% trans "Send Default Report" as sd %}
+    {% trans "Send Both" as sb %}
     <div class="post-form">
         <label style="color: whitesmoke; font-size: 15px; text-align: center">{{ m1 }}<a
                 href="https://documentation.nwa2coco.fr">{{ doclink }}</a>{{ m2 }}</label>
@@ -25,8 +28,8 @@
                   placeholder="Default Report" id="default"></textarea>
     </div>
     <div class="post-form">
-        <button class="btn btn-primary" onclick="tellDjango(0)">Send Template</button>
-        <button class="btn btn-primary" onclick="tellDjango(1)">Send Default Report</button>
-        <button class="btn btn-primary" onclick="tellDjango(2)">Send Both of them</button>
+        <button class="btn btn-primary" onclick="tellDjango(0)">{{ st }}</button>
+        <button class="btn btn-primary" onclick="tellDjango(1)">{{ sd }}</button>
+        <button class="btn btn-primary" onclick="tellDjango(2)">{{ sb }}</button>
     </div>
 {% endblock %}

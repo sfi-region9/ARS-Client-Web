@@ -6,8 +6,7 @@
     {% if messages %}
         <script>
             {% for message in messages %}
-                {% trans message as translated_message %}
-                M.toast({html: '{{ translated_message }}'});
+                M.toast({html: '{{ message }}'});
             {% endfor %}
         </script>
     {% endif %}
@@ -25,8 +24,9 @@
             style="position:fixed;bottom:0;left:0;width:100%;background-color: #222; border-color: #080808">
         <div class="container">
             <p style="text-align: center">
-            {% trans "Developed by LTCR Charlotte THOMAS from the USS Versailles, R9. To contact me : contact@nwa2coco.fr or via Facebook" %} <a href="ml">{% trans "Legal" %}</a>
-        </p>
+                {% trans "Developed by LTCR Charlotte THOMAS from the USS Versailles, R9. To contact me : contact@nwa2coco.fr or via Facebook" %}
+                <a href="ml">{% trans "Legal" %}</a>
+            </p>
         </div>
     </footer>
     <script type="application/javascript">

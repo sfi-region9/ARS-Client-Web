@@ -5,8 +5,7 @@
     {% if messages %}
         <script>
             {% for message in messages %}
-                {% trans message as translated_message %}
-                M.toast({html: '{{ translated_message }}'});
+                M.toast({html: '{{ message }}'});
             {% endfor %}
         </script>
     {% endif %}
@@ -17,7 +16,7 @@
               style="width: 80%; text-align: center; margin: 0 auto; color: white">
             {% csrf_token %}
             {{ form }}
-            <input class="btn btn-primary btnsubmit" type="submit" value="Change Vessel">
+            <input class="btn btn-primary btnsubmit" type="submit" value="{% trans "Change Vessel" %}">
         </form>
         <label style="font-size: 18px; text-align: center">{% trans "Your UUID (to link your accounts) :" %} <b><span
                 style="color: red;">{{ session.uuid }}</span></b></label>

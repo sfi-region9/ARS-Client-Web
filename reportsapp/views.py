@@ -6,19 +6,17 @@ from reportsapp.objects.utils import *
 from django.views.decorators.csrf import csrf_exempt
 from .forms import LoginForm, RegisterForm, ChangeVesselForm
 from django.utils.translation import gettext as _
-from django.utils.translation import activate, get_language
 
 import json
 
 global api, auth, vessels, default_by_id
-api = ApiHandler('https://api.sfiars.eu')
+api = ApiHandler('http://127.0.0.1:5555')
 auth = AuthHandler('https://auth.sfiars.eu')
 vessels = [(i.vesselid, i.name) for i in api.readVessels()]
 e = {}
 
 for i in api.readVessels():
     e[i.vesselid] = i.defaul
-activate('fr')
 
 
 def index(request):
@@ -56,18 +54,19 @@ def login(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
-            l = Login(form.cleaned_data['username'], form.cleaned_data['password'])
-            req = auth.login(l, request.session)
+            login_form = Login(form.cleaned_data['username'], form.cleaned_data['password'])
+            req = auth.login(login_form, request.session)
             if req:
                 messages.info(request, _("You are successfully login you're now ready to report!"))
-                return HttpResponseRedirect('/')
+                return HttpResponseRedirect('/' + request.LANGUAGE_CODE + "/")
             else:
-                print(req)
-                messages.info(request, req)
-                return HttpResponseRedirect('/login')
+                print("Error")
+                messages.info(request, _(req))
+                return HttpResponseRedirect('/' + request.LANGUAGE_CODE + '/login')
 
-    l = LoginForm()
-    return render(request, '../templates/reportsapp/login.html', {'form': l, 'base': 'Log In', 'submit': 'login'})
+    login_form = LoginForm()
+    return render(request, '../templates/reportsapp/login.html',
+                  {'form': login_form, 'base': _('Log In'), 'submit': 'login'})
 
 
 def register(request):
@@ -79,7 +78,7 @@ def register(request):
             r = Register(form.cleaned_data['name'], form.cleaned_data['scc'], form.cleaned_data['username'],
                          form.cleaned_data['password'], form.cleaned_data['vessel'], form.cleaned_data['email'])
             req = auth.register(r)
-            messages.info(request, req)
+            messages.info(request, _(req))
             if not req.__contains__('Error'):
                 return HttpResponseRedirect('/login')
             else:
@@ -87,7 +86,7 @@ def register(request):
 
     form = RegisterForm()
     return render(request, '../templates/reportsapp/login.html',
-                  {'form': form, 'base': 'Register', 'submit': 'register',
+                  {'form': form, 'base': _('Register'), 'submit': 'register',
                    'session': request.session.__dict__['_session_cache']})
 
 
@@ -98,7 +97,7 @@ def profile(request):
         f = ChangeVesselForm(request.POST)
         if f.is_valid():
             fs = f.cleaned_data
-            messages.info(request, api.switchvessel(request.session, fs['vessel']))
+            messages.info(request, _(api.switchvessel(request.session, fs['vessel'])))
             return HttpResponseRedirect('/')
     form = ChangeVesselForm()
     return render(request, '../templates/reportsapp/profile.html', {'form': form, 'session': request.session})
@@ -148,6 +147,7 @@ def change(request):
 @csrf_exempt
 def communication(request):
     r = request.body.decode('utf8')
+    print(r)
     jso = json.loads(r)
     report = jso['text']
     print(report)

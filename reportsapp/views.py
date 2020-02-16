@@ -10,7 +10,7 @@ from django.utils.translation import gettext as _
 import json
 
 global api, auth, vessels, default_by_id
-api = ApiHandler('http://127.0.0.1:5555')
+api = ApiHandler('https://api.sfiars.eu')
 auth = AuthHandler('https://auth.sfiars.eu')
 vessels = [(i.vesselid, i.name) for i in api.readVessels()]
 e = {}
@@ -50,7 +50,7 @@ def ml(request):
 # Create your views here.
 def login(request):
     if request.session.__contains__('username'):
-        return HttpResponseRedirect('/')
+        return HttpResponseRedirect('/' + request.LANGUAGE_CODE + "/")
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
@@ -71,7 +71,7 @@ def login(request):
 
 def register(request):
     if request.session.__contains__('username'):
-        return HttpResponseRedirect('/')
+        return HttpResponseRedirect('/' + request.LANGUAGE_CODE + "/")
     if request.method == 'POST':
         form = RegisterForm(request.POST)
         if form.is_valid():
@@ -80,9 +80,9 @@ def register(request):
             req = auth.register(r)
             messages.info(request, _(req))
             if not req.__contains__('Error'):
-                return HttpResponseRedirect('/login')
+                return HttpResponseRedirect('/' + request.LANGUAGE_CODE + '/login')
             else:
-                return HttpResponseRedirect('/register')
+                return HttpResponseRedirect('/' + + request.LANGUAGE_CODE + '/register')
 
     form = RegisterForm()
     return render(request, '../templates/reportsapp/login.html',
@@ -92,13 +92,13 @@ def register(request):
 
 def profile(request):
     if not request.session.__contains__('username'):
-        return HttpResponseRedirect('/')
+        return HttpResponseRedirect('/' + request.LANGUAGE_CODE + "/")
     if request.method == 'POST':
         f = ChangeVesselForm(request.POST)
         if f.is_valid():
             fs = f.cleaned_data
             messages.info(request, _(api.switchvessel(request.session, fs['vessel'])))
-            return HttpResponseRedirect('/')
+            return HttpResponseRedirect('/' + request.LANGUAGE_CODE + "/")
     form = ChangeVesselForm()
     return render(request, '../templates/reportsapp/profile.html', {'form': form, 'session': request.session})
 
@@ -106,12 +106,12 @@ def profile(request):
 def logout(request):
     request.session.delete()
     messages.info(request, _('You logged out'))
-    return HttpResponseRedirect('/')
+    return HttpResponseRedirect('/' + request.LANGUAGE_CODE + "/")
 
 
 def user(request):
     if not request.session.__contains__('username'):
-        return HttpResponseRedirect('/')
+        return HttpResponseRedirect('/' + request.LANGUAGE_CODE + "/")
     l = ChangeVesselForm()
     return render(request, '../templates/reportsapp/user.html',
                   {'session': request.session.__dict__['_session_cache'], 'form': l})
@@ -120,7 +120,7 @@ def user(request):
 @csrf_exempt
 def change(request):
     if not request.session.__contains__('username'):
-        return HttpResponseRedirect('/')
+        return HttpResponseRedirect('/' + request.LANGUAGE_CODE + "/")
 
     body = request.body.decode('utf8')
     data = json.loads(body)
@@ -152,7 +152,7 @@ def communication(request):
     report = jso['text']
     print(report)
     if report == "destroy":
-        destroy(request.session)
+        destroy(request, request.session)
         return HttpResponse('Redirect:main')
     if report == "profile":
         return HttpResponse('Redirect:profile')
@@ -161,18 +161,18 @@ def communication(request):
     return HttpResponse('False')
 
 
-def destroy(session):
+def destroy(request, session):
     api.destroy(session)
     auth.destroy(session)
     session.delete()
-    return HttpResponseRedirect('/')
+    return HttpResponseRedirect('/' + + request.LANGUAGE_CODE + "/")
 
 
 @csrf_exempt
 def report(request):
     api.synchronize_user(request.session)
     if not request.session.__contains__('username'):
-        return HttpResponseRedirect('/login')
+        return HttpResponseRedirect('/' + request.LANGUAGE_CODE + '/login')
     re = request.session['report']
     res = re.split('\n')
     ress = []
@@ -198,9 +198,9 @@ def sendreport(request):
 
 def customization(request):
     if not request.session.__contains__('username'):
-        return HttpResponseRedirect('/login')
+        return HttpResponseRedirect('/' + request.LANGUAGE_CODE + '/login')
     if not api.isco(request.session):
-        return HttpResponseRedirect('/reports')
+        return HttpResponseRedirect('/' + request.LANGUAGE_CODE + '/reports')
     return render(request, '../templates/reportsapp/customization.html',
                   {'session': request.session.__dict__['_session_cache']})
 

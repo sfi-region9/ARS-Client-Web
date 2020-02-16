@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-16 11:44+0000\n"
+"POT-Creation-Date: 2020-02-16 12:54+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,6 +24,11 @@ msgstr ""
 
 #: ARSWebsiteReloaded/settings.py:114
 msgid "English"
+msgstr ""
+
+#: reportsapp/apihandler.py:23 reportsapp/apihandler.py:38
+#: reportsapp/apihandler.py:47 reportsapp/apihandler.py:56
+msgid "Error you're not logged"
 msgstr ""
 
 #: reportsapp/forms.py:9 reportsapp/forms.py:15
@@ -124,6 +129,10 @@ msgstr ""
 #: templates/reportsapp/index.html:28 templates/reportsapp/login.html:27
 #: templates/reportsapp/profile.html:30
 msgid "Legal"
+msgstr ""
+
+#: templates/reportsapp/profile.html:19
+msgid "Change Vessel"
 msgstr ""
 
 #: templates/reportsapp/profile.html:21

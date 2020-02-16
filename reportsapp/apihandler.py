@@ -20,7 +20,7 @@ class ApiHandler:
 
     def synchronize_user(self, session):
         if not session.__contains__('username'):
-            return "Error you're not logged"
+            return _("Error you're not logged")
         s = StorageHandler(session)
         response = requests.post(self.url + "/synchronize_user", data=json.dumps(s.constructUser().__dict__))
         df = response.content.decode('utf8')
@@ -35,7 +35,7 @@ class ApiHandler:
 
     def switchvessel(self, session, newvessel):
         if not session.__contains__('username'):
-            return "Error you're not logged"
+            return _("Error you're not logged")
         s = StorageHandler(session)
         u = s.constructUser()
         u.vesselid = newvessel
@@ -44,7 +44,7 @@ class ApiHandler:
 
     def isco(self, session):
         if not session.__contains__('username'):
-            return "Error you're not logged"
+            return _("Error you're not logged")
         s = StorageHandler(session)
         dic = {"vesselID": s.vesselID, "coID": s.messengerid}
         payload = dic
@@ -53,7 +53,7 @@ class ApiHandler:
 
     def sendreport(self, session, report):
         if not session.__contains__('username'):
-            return "Error you're not logged"
+            return _("Error you're not logged")
         s = StorageHandler(session)
         s.report = report
         response = requests.post(self.url + "/submit", data=json.dumps(s.constructUser().__dict__))

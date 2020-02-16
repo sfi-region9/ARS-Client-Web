@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-16 11:44+0000\n"
+"POT-Creation-Date: 2020-02-16 12:54+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,99 +20,104 @@ msgstr ""
 
 #: ARSWebsiteReloaded/settings.py:113
 msgid "French"
-msgstr ""
+msgstr "Français"
 
 #: ARSWebsiteReloaded/settings.py:114
 msgid "English"
-msgstr ""
+msgstr "Anglais"
+
+#: reportsapp/apihandler.py:23 reportsapp/apihandler.py:38
+#: reportsapp/apihandler.py:47 reportsapp/apihandler.py:56
+msgid "Error you're not logged"
+msgstr "Erreur vous n'êtes pas connecté.e"
 
 #: reportsapp/forms.py:9 reportsapp/forms.py:15
 msgid "username"
-msgstr ""
+msgstr "nom d'utilisateur"
 
 #: reportsapp/forms.py:14
 msgid "NAME First"
-msgstr ""
+msgstr "NOM Prénom"
 
 #: reportsapp/forms.py:17
 msgid "SCC#"
-msgstr ""
+msgstr "SCC#"
 
 #: reportsapp/forms.py:18
 msgid "Email"
-msgstr ""
+msgstr "Courriel"
 
 #: reportsapp/views.py:60
 msgid "You are successfully login you're now ready to report!"
-msgstr ""
+msgstr "Vous êtes connecté.e, vous pouvez éditer votre rapport"
 
 #: reportsapp/views.py:69
 msgid "Log In"
-msgstr ""
+msgstr "Se connecter"
 
 #: reportsapp/views.py:89
 msgid "Register"
-msgstr ""
+msgstr "S'enregistrer"
 
 #: reportsapp/views.py:108
 msgid "You logged out"
-msgstr ""
+msgstr "Vous vous êtes déconnecté.e"
 
 #: templates/reportsapp/base.html:4
 msgid "Welcome "
-msgstr ""
+msgstr "Bienvenue "
 
 #: templates/reportsapp/base.html:41
 msgid " Log Out"
-msgstr ""
+msgstr " Se déconnecter"
 
 #: templates/reportsapp/base.html:44
 msgid " Register"
-msgstr ""
+msgstr " S'enregistrer"
 
 #: templates/reportsapp/base.html:45
 msgid " Login"
-msgstr ""
+msgstr " Se connecter"
 
 #: templates/reportsapp/customization.html:6
 msgid "Please see the "
-msgstr ""
+msgstr "Veuillez voir la "
 
 #: templates/reportsapp/customization.html:7
 msgid "documentation link"
-msgstr ""
+msgstr "documentation"
 
 #: templates/reportsapp/customization.html:8
 msgid " to a full tutorial"
-msgstr ""
+msgstr " pour un tutoriel complet"
 
 #: templates/reportsapp/customization.html:9
 msgid "Default Report : "
-msgstr ""
+msgstr "Rapport par défaut : "
 
 #: templates/reportsapp/customization.html:10
 msgid "You can add a "
-msgstr ""
+msgstr "Vous pouvez ajouter un "
 
 #: templates/reportsapp/customization.html:11
 msgid " before the line to mark an optional line"
-msgstr ""
+msgstr " avant la ligne pour la marquer optionelle"
 
 #: templates/reportsapp/customization.html:12
 msgid " : See the documentation for a variety of placeholders"
-msgstr ""
+msgstr " : Voir la documentation pour une variété de placeholders"
 
 #: templates/reportsapp/customization.html:13
 msgid "Send Template"
-msgstr ""
+msgstr "Envoyer la template"
 
 #: templates/reportsapp/customization.html:14
 msgid "Send Default Report"
-msgstr ""
+msgstr "Envoyer le rapport par défaut"
 
 #: templates/reportsapp/customization.html:15
 msgid "Send Both"
-msgstr ""
+msgstr "Envoye les deux"
 
 #: templates/reportsapp/index.html:27 templates/reportsapp/login.html:26
 #: templates/reportsapp/profile.html:29
@@ -120,35 +125,41 @@ msgid ""
 "Developed by LTCR Charlotte THOMAS from the USS Versailles, R9. To contact "
 "me : contact@nwa2coco.fr or via Facebook"
 msgstr ""
+"Développé par le LCDR Charlotte de l'USS Versailles, R9. Pour me contacter "
+" : contact@nwa2coco.fr ou par Facebook"
 
 #: templates/reportsapp/index.html:28 templates/reportsapp/login.html:27
 #: templates/reportsapp/profile.html:30
 msgid "Legal"
-msgstr ""
+msgstr "Mentions Légales"
+
+#: templates/reportsapp/profile.html:19
+msgid "Change Vessel"
+msgstr "Changer de Vaisseau"
 
 #: templates/reportsapp/profile.html:21
 msgid "Your UUID (to link your accounts) :"
-msgstr ""
+msgstr "Votre UUID ( pour lier vos comptes ) :"
 
 #: templates/reportsapp/reports.html:16
 msgid "Send Report"
-msgstr ""
+msgstr "Envoyer le rapport"
 
 #: templates/reportsapp/reports.html:21
 msgid "Customization"
-msgstr ""
+msgstr "Customisation"
 
 #: templates/reportsapp/reports.html:24
 msgid "Profile"
-msgstr ""
+msgstr "Profile"
 
 #: templates/reportsapp/reports.html:25
 msgid "Destroy Account"
-msgstr ""
+msgstr "Détruire le compte"
 
 #: templates/reportsapp/reports.html:27
 msgid "Unlock Destroy Account Button"
-msgstr ""
+msgstr "Débloquer la destruction du compte"
 
 #: venv/lib/python3.6/site-packages/django/contrib/messages/apps.py:7
 msgid "Messages"
